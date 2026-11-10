@@ -1,0 +1,13 @@
+# Dependências / saída de ferramentas
+node_modules/
+
+# Ferramentas de IA e artefatos locais
+.agent/
+.playwright-mcp/
+
+# Backups e temporários
+*.bak
+*.zip
+*.tar.gz
+.DS_Store
+Thumbs.db

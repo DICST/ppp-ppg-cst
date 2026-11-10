@@ -1,0 +1,74 @@
+# Configuração OPCIONAL para hospedagem em Apache (ex.: servidor do INPE).
+# NÃO tem efeito no GitHub Pages, que ignora .htaccess.
+
+# ==============================================================================
+# SEGURANÇA BÁSICA
+# ==============================================================================
+
+# Desabilita a listagem de diretórios (Impede que invasores vejam a estrutura de arquivos)
+Options -Indexes
+
+# Oculta a assinatura do servidor (Evita expor a versão exata do Apache)
+ServerSignature Off
+
+# Força o uso da codificação UTF-8
+AddDefaultCharset utf-8
+
+# ==============================================================================
+# PROTEÇÃO DE ARQUIVOS SENSÍVEIS
+# ==============================================================================
+
+# Bloqueia acesso a arquivos e diretórios ocultos (começando com ponto, como .env, .git, .htaccess)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Bloqueia arquivos de backup, log e documentação sensível
+<FilesMatch "\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist|md|php)$">
+    Require all denied
+</FilesMatch>
+
+
+
+# ==============================================================================
+# CABEÇALHOS DE SEGURANÇA (SECURITY HEADERS)
+# ==============================================================================
+# Estes cabeçalhos complementam os definidos no HTML (meta CSP), 
+# garantindo que ativos estáticos (CSS, imagens) também estejam protegidos.
+
+<IfModule mod_headers.c>
+    # 1. Previne Clickjacking (Ataques de sobreposição de frame)
+    Header always set X-Frame-Options "SAMEORIGIN"
+    
+    # 2. Impede o navegador de "adivinhar" o MIME type (MIME Sniffing)
+    Header always set X-Content-Type-Options "nosniff"
+    
+    # 3. Força conexão segura HTTPS (HSTS - 1 ano)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+    
+    # 4. Controla quais informações são enviadas no cabeçalho Referer
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    
+    # 5. Permissions-Policy (Limita acesso a APIs do navegador)
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+    # 6. Content Security Policy (CSP) - Protege contra injeção XSS e frames externos
+    Header always set Content-Security-Policy "default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'self'"
+
+    # 7. X-XSS-Protection (Defesa extra para navegadores antigos)
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # 8. Cross-Origin Resource Policy (CORP) e Opener Policy (COOP)
+    Header always set Cross-Origin-Resource-Policy "same-origin"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+
+    # 9. Remove informações da tecnologia executada para dificultar fingerprinting do servidor
+    Header unset X-Powered-By
+    Header unset ETag
+</IfModule>
+
+# Desativa a geração de ETags
+FileETag None
+
+# Limita o tamanho do corpo das requisições para evitar negação de serviço (site 100% estático)
+LimitRequestBody 1024000

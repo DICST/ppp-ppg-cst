@@ -2,12 +2,12 @@
 
 **Construção Participativa do Projeto Político-Pedagógico do Programa de Pós-Graduação em Ciência do Sistema Terrestre (PPG-CST) — INPE.**
 
-[![Deploy GitHub Pages](https://github.com/DICST/ppp-ppt-cst/actions/workflows/pages.yml/badge.svg)](https://github.com/DICST/ppp-ppt-cst/actions/workflows/pages.yml)
+[![Deploy GitHub Pages](https://github.com/DICST/ppp-ppg-cst/actions/workflows/pages.yml/badge.svg)](https://github.com/DICST/ppp-ppg-cst/actions/workflows/pages.yml)
 ![Site estático](https://img.shields.io/badge/site-est%C3%A1tico-2196d8)
 ![Zero dependências](https://img.shields.io/badge/runtime-zero%20depend%C3%AAncias-1eb280)
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-d99a25)](LICENSE)
 
-🌐 **Site:** <https://dicst.github.io/ppp-ppt-cst/>
+🌐 **Site:** <https://dicst.github.io/ppp-ppg-cst/>
 
 ---
 
